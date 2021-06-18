@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 
 const TheHeader = () => (
     <>
@@ -7,8 +7,12 @@ const TheHeader = () => (
             <Navbar.Brand href="#home">Merehead task</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
+                <Nav className="mr-auto">
+                    <Nav.Link href="/">Главная</Nav.Link>
+                    <Nav.Link href="/user-create">Создать пользователя</Nav.Link>
+                </Nav>
                 <Navbar.Text>
-                    Разработка: <a href="https://teleg.run/vasiliy_oleinik" target="_blank">Vasilii Oleinik</a>
+                    Разработка: <a href="https://teleg.run/vasiliy_oleinik" target="_blank" rel="noreferrer">Vasilii Oleinik</a>
                 </Navbar.Text>
             </Navbar.Collapse>
         </Navbar>

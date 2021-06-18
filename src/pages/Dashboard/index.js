@@ -1,39 +1,57 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { Trash, PencilSquare } from 'react-bootstrap-icons';
+import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
-import columns from './tableColumns';
 import options from './tableOptions';
+import { deleteUser } from 'src/actions/user';
+
 
 const Dashboard = () => {
-    const API_URL = process.env.REACT_APP_BACKEND_API;
-    const [data, setData] = useState([]);
-    const getUsers = useCallback(() => {
-        axios({
-            method: 'GET',
-            url: `${API_URL}users`,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                'Access-Control-Allow-Origin': '*'
-            }
-        })
-            .then(response => {
-                setData(response.data);
-                console.log(response)
-            })
-            .catch(error => {
-                console.log('error', error);
-            });
-    }, [API_URL]);
-    useEffect(() => {
-        getUsers();
-    }, [getUsers]);
+    const dispatch = useDispatch();
+    const columns = [{
+        dataField: 'id',
+        text: 'ID',
+        sort: true
+    }, {
+        dataField: 'name',
+        text: 'Имя',
+        sort: true
+    }, {
+        dataField: 'surname',
+        text: 'Фамилия',
+        sort: true
+    }, {
+        dataField: 'desc',
+        text: 'Описание',
+        sort: true
+    },
+    {
+        dataField: 'id',
+        text: 'Действия',
+        sort: false,
+        formatter: (id) => {
+            console.log('id', id);
+            return (
+                <div>
+                    <Button variant="primary" href="#" className="mr-3" title="Редактирование пользователяф">
+                        <PencilSquare />
+                    </Button>
+                    <Button variant="danger" title="Удалить пользователя" onClick={() => dispatch(deleteUser(id))}>
+                        <Trash />
+                    </Button>
+                </div>
+            )
+        },
+    }];
+
+    const usersList = useSelector(state => state.user.users);
 
     return (
-        <BootstrapTable keyField='location.street.number' data={data} bootstrap4 columns={columns} pagination={paginationFactory(options)} bordered={false} />
+        <BootstrapTable keyField='location.street.number' data={usersList} bootstrap4 columns={columns} pagination={paginationFactory(options)} bordered={false} />
     )
 }
 
