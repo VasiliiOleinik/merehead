@@ -7,12 +7,10 @@ import {
 
 const TheLayout = () => {
     return (
-
         <div className="app">
             <TheHeader />
             <TheContent />
         </div>
-
     )
 }
 export default TheLayout;

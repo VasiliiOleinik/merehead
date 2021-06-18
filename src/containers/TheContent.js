@@ -3,11 +3,15 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 
 import Loader from 'src/components/Loading';
+import TheTitle from './TheTitle';
 import routes from 'src/routes';
 
 const TheContent = () => {
     return (
         <Container>
+            <Row>
+                <TheTitle />
+            </Row>
             <Row>
                 <Suspense fallback={Loader}>
                     <Switch>
@@ -29,6 +33,6 @@ const TheContent = () => {
             </Row>
         </Container>
     )
-}
+};
 
 export default TheContent;

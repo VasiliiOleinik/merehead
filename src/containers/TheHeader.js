@@ -4,7 +4,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 const TheHeader = () => (
     <>
         <Navbar bg="dark" variant="dark" className="mb-4">
-            <Navbar.Brand href="#home">Merehead task</Navbar.Brand>
+            <Navbar.Brand href="/">Merehead task</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
                 <Nav className="mr-auto">

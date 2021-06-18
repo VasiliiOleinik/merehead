@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { matchPath, Link } from "react-router-dom";
 import { Trash, PencilSquare } from 'react-bootstrap-icons';
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
@@ -9,9 +10,10 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import options from './tableOptions';
 import { deleteUser } from 'src/actions/user';
 
-
 const Dashboard = () => {
     const dispatch = useDispatch();
+    const usersList = useSelector(state => state.user.users);
+    
     const columns = [{
         dataField: 'id',
         text: 'ID',
@@ -34,12 +36,23 @@ const Dashboard = () => {
         text: 'Действия',
         sort: false,
         formatter: (id) => {
-            console.log('id', id);
+            const match = matchPath(`/user-edit/${id}`, {
+                path: "/user-edit/:id",
+                exact: false,
+                strict: false
+            });
             return (
                 <div>
-                    <Button variant="primary" href="#" className="mr-3" title="Редактирование пользователяф">
-                        <PencilSquare />
-                    </Button>
+                    <Link to={match.url}>
+                        <Button
+                            variant="primary"
+                            className="mr-3"
+                            title="Редактирование пользователя"
+                        >
+                            <PencilSquare />
+                        </Button>
+                    </Link>
+
                     <Button variant="danger" title="Удалить пользователя" onClick={() => dispatch(deleteUser(id))}>
                         <Trash />
                     </Button>
@@ -48,10 +61,10 @@ const Dashboard = () => {
         },
     }];
 
-    const usersList = useSelector(state => state.user.users);
-
     return (
-        <BootstrapTable keyField='location.street.number' data={usersList} bootstrap4 columns={columns} pagination={paginationFactory(options)} bordered={false} />
+        <Card body>
+            <BootstrapTable keyField='id' data={usersList} bootstrap4 columns={columns} pagination={paginationFactory(options)} bordered={false} />
+        </Card>
     )
 }
 

@@ -6,4 +6,4 @@ export {
     TheContent,
     TheHeader,
     TheLayout
-}
+};
