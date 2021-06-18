@@ -1,13 +1,14 @@
 import React, { Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { Container, Row } from 'react-bootstrap';
 
 import Loader from 'src/components/Loading';
 import routes from 'src/routes';
 
 const TheContent = () => {
     return (
-        <body>
-            <div class="container">
+        <Container>
+            <Row>
                 <Suspense fallback={Loader}>
                     <Switch>
                         {routes.map((route, idx) => {
@@ -25,8 +26,8 @@ const TheContent = () => {
                         <Redirect from="/" to="/404" />
                     </Switch>
                 </Suspense>
-            </div>
-        </body>
+            </Row>
+        </Container>
     )
 }
 
