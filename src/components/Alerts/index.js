@@ -13,6 +13,7 @@ const Alerts = ({ type, title, text }) => {
             variant={type}
             className="d-flex justify-content-between"
             dismissible
+            id={type}
             onClose={() => dispatch(setHideAlert())}
         >
             <p><strong>{title}</strong> {text}</p>

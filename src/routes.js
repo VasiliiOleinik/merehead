@@ -15,7 +15,7 @@ const EditUser = Loadable({
 const routes = [
   { path: '/', name: 'Главная страница', component: Dashboard, exact: true },
   { path: '/user-create', name: 'Создание пользователя', component: UserCreate, exact: true },
-  { path: '/user-edit/:id', name: 'Редактирование пользователя', component: EditUser },
+  { path: '/user-edit/:id', name: 'Редактирование пользователя', component: EditUser }
 ];
 
 export default routes;

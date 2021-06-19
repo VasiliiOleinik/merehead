@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getUsers, setDeleteUser, getUser } from 'src/reducers/userReducer';
 import { setAlert, setShowAlert } from 'src/reducers/alertsReducer';
+import { setError } from 'src/reducers/errorReducer';
 const API_URL = process.env.REACT_APP_BACKEND_API;
 
 // Получение всех пользователей
@@ -35,7 +36,7 @@ export function getUserApi(id) {
             });
             dispatch(getUser(response.data));
         } catch (e) {
-            dispatch(setAlert({ type: 'error', title: "Error", text: e.response.data.message }));
+            dispatch(setAlert({ type: 'error', title: "Error", text: "Пользователь не найден" }));
             dispatch(setShowAlert());
         }
     }
@@ -56,7 +57,7 @@ export function deleteUser(id) {
             dispatch(setAlert({ type: 'success', title: "Success", text: "Пользователь успешно удален" }));
             dispatch(setShowAlert());
         } catch (e) {
-            dispatch(setAlert({ type: 'error', title: "Error", text: e.response.data.message }));
+            dispatch(setAlert({ type: 'danger', title: "Error", text: e.response.data.message }));
             dispatch(setShowAlert());
         }
     }
@@ -75,8 +76,9 @@ export const createUser = async (id, name, surname, desc, dispatch) => {
         dispatch(setAlert({ type: 'success', title: "Success", text: "Пользователь успешно создан" }));
         dispatch(setShowAlert());
     } catch (e) {
-        dispatch(setAlert({ type: 'error', title: "Error", text: e.response.data.message }));
+        dispatch(setAlert({ type: 'danger', title: "Error", text: 'Исправьте ошибки в форме' }));
         dispatch(setShowAlert());
+        dispatch(setError(e.response.data.errors));
     }
 };
 
@@ -92,7 +94,8 @@ export const editUser = async (id, name, surname, desc, dispatch) => {
         dispatch(setAlert({ type: 'success', title: "Success", text: "Пользователь успешно изменен" }));
         dispatch(setShowAlert());
     } catch (e) {
-        dispatch(setAlert({ type: 'error', title: "Error", text: e.response.data.message }));
+        dispatch(setAlert({ type: 'danger', title: "Error", text: 'Исправьте ошибки в форме' }));
         dispatch(setShowAlert());
+        dispatch(setError(e.response.data.errors));
     }
 };

@@ -62,8 +62,9 @@ const Dashboard = () => {
     }];
 
     return (
-        <Card body>
-            <BootstrapTable keyField='id' data={usersList} bootstrap4 columns={columns} pagination={paginationFactory(options)} bordered={false} />
+        <Card body >
+            <h1 className="mb-4">Главная страница</h1>
+            <BootstrapTable keyField="id" data={usersList} bootstrap4 columns={columns} pagination={paginationFactory(options)} bordered={false} />
         </Card>
     )
 }
